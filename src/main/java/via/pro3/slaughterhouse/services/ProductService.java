@@ -2,13 +2,12 @@ package via.pro3.slaughterhouse.services;
 
 import com.slaughterhouse.grpc.*;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.stereotype.Service;
 import via.pro3.slaughterhouse.repositories.ProductRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 @GRpcService
-@Service public class ProductService extends ProductServiceGrpc.ProductServiceImplBase
+public class ProductService extends ProductServiceGrpc.ProductServiceImplBase
 {
   private final ProductRepository productRepository;
 

@@ -5,10 +5,9 @@ import com.slaughterhouse.grpc.CreateAnimalPartRequest;
 import com.slaughterhouse.grpc.CreateAnimalPartResponse;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.stereotype.Service;
 import via.pro3.slaughterhouse.repositories.AnimalPartRepository;
 import com.slaughterhouse.grpc.*;
-@GRpcService @Service public class AnimalPartService
+@GRpcService public class AnimalPartService
     extends AnimalPartServiceImplBase
 {
   private final AnimalPartRepository partRepository;

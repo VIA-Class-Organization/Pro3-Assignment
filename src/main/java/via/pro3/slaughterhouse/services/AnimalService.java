@@ -1,9 +1,8 @@
 package via.pro3.slaughterhouse.services;
 
-import com.slaughterhouse.grpc.*;
 import com.google.protobuf.Timestamp;
+import com.slaughterhouse.grpc.*;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.stereotype.Service;
 import via.pro3.slaughterhouse.model.Animal;
 import via.pro3.slaughterhouse.repositories.AnimalRepository;
 
@@ -12,7 +11,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@GRpcService @Service public class AnimalService
+@GRpcService public class AnimalService
     extends AnimalServiceGrpc.AnimalServiceImplBase
 {
 

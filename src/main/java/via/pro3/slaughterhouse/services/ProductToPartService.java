@@ -3,14 +3,13 @@ package via.pro3.slaughterhouse.services;
 import com.slaughterhouse.grpc.*;
 import com.slaughterhouse.grpc.Error;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.stereotype.Service;
 import via.pro3.slaughterhouse.model.ProductToPart;
 import via.pro3.slaughterhouse.repositories.ProductToPartRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 @GRpcService
-@Service public class ProductToPartService extends ProductToPartServiceGrpc.ProductToPartServiceImplBase
+public class ProductToPartService extends ProductToPartServiceGrpc.ProductToPartServiceImplBase
 {
 
   private final ProductToPartRepository productToPartRepository;
