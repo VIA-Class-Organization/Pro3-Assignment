@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
       @PathVariable int id)
   {
     return animalRepository.findById(id)
-        .map(ResponseEntity::ok)// return created
+        .map(ResponseEntity::ok)// return okay
         .orElse(ResponseEntity.notFound().build());
   }
 
