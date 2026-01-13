@@ -5,6 +5,7 @@ import com.slaughterhouse.grpc.CreateAnimalPartRequest;
 import com.slaughterhouse.grpc.CreateAnimalPartResponse;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
+import via.pro3.slaughterhouse.model.AnimalPart;
 import via.pro3.slaughterhouse.repositories.AnimalPartRepository;
 import com.slaughterhouse.grpc.*;
 @GRpcService public class AnimalPartService
@@ -21,7 +22,7 @@ import com.slaughterhouse.grpc.*;
       StreamObserver<CreateAnimalPartResponse> responseObserver)//needed to send grpc services
   {
     // create part
-    var animalPart = new via.pro3.slaughterhouse.model.AnimalPart();
+    var animalPart = new AnimalPart();
     animalPart.setId(request.getPart().getAnimalId());
     animalPart.setAnimalId(request.getPart().getAnimalId());
     animalPart.setPartType(request.getPart().getPartType());
