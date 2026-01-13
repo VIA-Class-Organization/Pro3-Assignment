@@ -10,13 +10,13 @@ public final class AnimalPartProto extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:via.pro3.slaughterhouse.AnimalPartProto)
     AnimalPartProtoOrBuilder {
-private static final int serialVersionUID = 0;
+private static final long serialVersionUID = 0L;
   // Use AnimalPartProto.newBuilder() to construct.
   private AnimalPartProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
   private AnimalPartProto() {
-    partType = "";
+    partType_ = "";
   }
 
   @java.lang.Override
@@ -51,23 +51,23 @@ private static final int serialVersionUID = 0;
             break;
           case 8: {
 
-            id = input.readInt32();
+            id_ = input.readInt32();
             break;
           }
           case 16: {
 
-            animalId = input.readInt32();
+            animalId_ = input.readInt32();
             break;
           }
           case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            partType = s;
+            partType_ = s;
             break;
           }
           case 33: {
 
-            weight = input.readDouble();
+            weight_ = input.readDouble();
             break;
           }
           default: {
@@ -105,43 +105,43 @@ private static final int serialVersionUID = 0;
   }
 
   public static final int ID_FIELD_NUMBER = 1;
-  private int id;
+  private int id_;
   /**
    * <code>int32 id = 1;</code>
    * @return The id.
    */
   @java.lang.Override
   public int getId() {
-    return id;
+    return id_;
   }
 
   public static final int ANIMAL_ID_FIELD_NUMBER = 2;
-  private int animalId;
+  private int animalId_;
   /**
    * <code>int32 animal_id = 2;</code>
    * @return The animalId.
    */
   @java.lang.Override
   public int getAnimalId() {
-    return animalId;
+    return animalId_;
   }
 
   public static final int PART_TYPE_FIELD_NUMBER = 3;
-  private volatile java.lang.Object partType;
+  private volatile java.lang.Object partType_;
   /**
    * <code>string part_type = 3;</code>
    * @return The partType.
    */
   @java.lang.Override
   public java.lang.String getPartType() {
-    java.lang.Object ref = partType;
+    java.lang.Object ref = partType_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      partType = s;
+      partType_ = s;
       return s;
     }
   }
@@ -152,12 +152,12 @@ private static final int serialVersionUID = 0;
   @java.lang.Override
   public com.google.protobuf.ByteString
       getPartTypeBytes() {
-    java.lang.Object ref = partType;
+    java.lang.Object ref = partType_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      partType = b;
+      partType_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -165,14 +165,14 @@ private static final int serialVersionUID = 0;
   }
 
   public static final int WEIGHT_FIELD_NUMBER = 4;
-  private double weight;
+  private double weight_;
   /**
    * <code>double weight = 4;</code>
    * @return The weight.
    */
   @java.lang.Override
   public double getWeight() {
-    return weight;
+    return weight_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -189,17 +189,17 @@ private static final int serialVersionUID = 0;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (id != 0) {
-      output.writeInt32(1, id);
+    if (id_ != 0) {
+      output.writeInt32(1, id_);
     }
-    if (animalId != 0) {
-      output.writeInt32(2, animalId);
+    if (animalId_ != 0) {
+      output.writeInt32(2, animalId_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, partType);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, partType_);
     }
-    if (java.lang.Double.doubleToRawLongBits(weight) != 0) {
-      output.writeDouble(4, weight);
+    if (java.lang.Double.doubleToRawLongBits(weight_) != 0) {
+      output.writeDouble(4, weight_);
     }
     unknownFields.writeTo(output);
   }
@@ -210,20 +210,20 @@ private static final int serialVersionUID = 0;
     if (size != -1) return size;
 
     size = 0;
-    if (id != 0) {
+    if (id_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, id);
+        .computeInt32Size(1, id_);
     }
-    if (animalId != 0) {
+    if (animalId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, animalId);
+        .computeInt32Size(2, animalId_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, partType);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, partType_);
     }
-    if (java.lang.Double.doubleToRawLongBits(weight) != 0) {
+    if (java.lang.Double.doubleToRawLongBits(weight_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(4, weight);
+        .computeDoubleSize(4, weight_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -402,13 +402,13 @@ private static final int serialVersionUID = 0;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      id = 0;
+      id_ = 0;
 
-      animalId = 0;
+      animalId_ = 0;
 
-      partType = "";
+      partType_ = "";
 
-      weight = 0;
+      weight_ = 0D;
 
       return this;
     }
@@ -436,10 +436,10 @@ private static final int serialVersionUID = 0;
     @java.lang.Override
     public com.slaughterhouse.grpc.AnimalPartProto buildPartial() {
       com.slaughterhouse.grpc.AnimalPartProto result = new com.slaughterhouse.grpc.AnimalPartProto(this);
-      result.id = id;
-      result.animalId = animalId;
-      result.partType = partType;
-      result.weight = weight;
+      result.id_ = id_;
+      result.animalId_ = animalId_;
+      result.partType_ = partType_;
+      result.weight_ = weight_;
       onBuilt();
       return result;
     }
@@ -495,10 +495,10 @@ private static final int serialVersionUID = 0;
         setAnimalId(other.getAnimalId());
       }
       if (!other.getPartType().isEmpty()) {
-        partType = other.partType;
+        partType_ = other.partType_;
         onChanged();
       }
-      if (other.getWeight() != 0) {
+      if (other.getWeight() != 0D) {
         setWeight(other.getWeight());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -530,14 +530,14 @@ private static final int serialVersionUID = 0;
       return this;
     }
 
-    private int id ;
+    private int id_ ;
     /**
      * <code>int32 id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
     public int getId() {
-      return id;
+      return id_;
     }
     /**
      * <code>int32 id = 1;</code>
@@ -546,7 +546,7 @@ private static final int serialVersionUID = 0;
      */
     public Builder setId(int value) {
       
-      id = value;
+      id_ = value;
       onChanged();
       return this;
     }
@@ -556,19 +556,19 @@ private static final int serialVersionUID = 0;
      */
     public Builder clearId() {
       
-      id = 0;
+      id_ = 0;
       onChanged();
       return this;
     }
 
-    private int animalId ;
+    private int animalId_ ;
     /**
      * <code>int32 animal_id = 2;</code>
      * @return The animalId.
      */
     @java.lang.Override
     public int getAnimalId() {
-      return animalId;
+      return animalId_;
     }
     /**
      * <code>int32 animal_id = 2;</code>
@@ -577,7 +577,7 @@ private static final int serialVersionUID = 0;
      */
     public Builder setAnimalId(int value) {
       
-      animalId = value;
+      animalId_ = value;
       onChanged();
       return this;
     }
@@ -587,23 +587,23 @@ private static final int serialVersionUID = 0;
      */
     public Builder clearAnimalId() {
       
-      animalId = 0;
+      animalId_ = 0;
       onChanged();
       return this;
     }
 
-    private java.lang.Object partType = "";
+    private java.lang.Object partType_ = "";
     /**
      * <code>string part_type = 3;</code>
      * @return The partType.
      */
     public java.lang.String getPartType() {
-      java.lang.Object ref = partType;
+      java.lang.Object ref = partType_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        partType = s;
+        partType_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
@@ -615,12 +615,12 @@ private static final int serialVersionUID = 0;
      */
     public com.google.protobuf.ByteString
         getPartTypeBytes() {
-      java.lang.Object ref = partType;
+      java.lang.Object ref = partType_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        partType = b;
+        partType_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -637,7 +637,7 @@ private static final int serialVersionUID = 0;
     throw new NullPointerException();
   }
   
-      partType = value;
+      partType_ = value;
       onChanged();
       return this;
     }
@@ -647,7 +647,7 @@ private static final int serialVersionUID = 0;
      */
     public Builder clearPartType() {
       
-      partType = getDefaultInstance().getPartType();
+      partType_ = getDefaultInstance().getPartType();
       onChanged();
       return this;
     }
@@ -663,19 +663,19 @@ private static final int serialVersionUID = 0;
   }
   checkByteStringIsUtf8(value);
       
-      partType = value;
+      partType_ = value;
       onChanged();
       return this;
     }
 
-    private double weight ;
+    private double weight_ ;
     /**
      * <code>double weight = 4;</code>
      * @return The weight.
      */
     @java.lang.Override
     public double getWeight() {
-      return weight;
+      return weight_;
     }
     /**
      * <code>double weight = 4;</code>
@@ -684,7 +684,7 @@ private static final int serialVersionUID = 0;
      */
     public Builder setWeight(double value) {
       
-      weight = value;
+      weight_ = value;
       onChanged();
       return this;
     }
@@ -694,7 +694,7 @@ private static final int serialVersionUID = 0;
      */
     public Builder clearWeight() {
       
-      weight = 0;
+      weight_ = 0D;
       onChanged();
       return this;
     }

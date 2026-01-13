@@ -1,17 +1,15 @@
 package via.pro3.slaughterhouse.services;
 
+import com.slaughterhouse.grpc.AnimalPartServiceGrpc.AnimalPartServiceImplBase;
 import com.slaughterhouse.grpc.CreateAnimalPartRequest;
 import com.slaughterhouse.grpc.CreateAnimalPartResponse;
+import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.stereotype.Service;
 import via.pro3.slaughterhouse.repositories.AnimalPartRepository;
-
 import com.slaughterhouse.grpc.*;
-import via.pro3.slaughterhouse.model.AnimalPart;
-import java.util.List;
-import java.util.stream.Collectors;
-@GRpcService
-@Service public class AnimalPartService extends AnimalPartServiceGrpc.AnimalPartServiceImplBase
+@GRpcService @Service public class AnimalPartService
+    extends AnimalPartServiceImplBase
 {
   private final AnimalPartRepository partRepository;
 
@@ -20,75 +18,92 @@ import java.util.stream.Collectors;
     this.partRepository = partRepository;
   }
 
-  public CreateAnimalPartResponse create(CreateAnimalPartRequest request)
+  @Override public void createAnimalPart(CreateAnimalPartRequest request,
+      StreamObserver<CreateAnimalPartResponse> responseObserver)//needed to send grpc services
   {
-
-    AnimalPart animalPart = new via.pro3.slaughterhouse.model.AnimalPart();
+    // create part
+    var animalPart = new via.pro3.slaughterhouse.model.AnimalPart();
     animalPart.setId(request.getPart().getAnimalId());
     animalPart.setAnimalId(request.getPart().getAnimalId());
     animalPart.setPartType(request.getPart().getPartType());
     animalPart.setWeight(request.getPart().getWeight());
-
+    // save part
     partRepository.save(animalPart);
-
-    AnimalPartProto protoAnimalPart = AnimalPartProto.newBuilder()
-        .setId(animalPart.getId()).setAnimalId(animalPart.getAnimalId())
+    // create animalPart
+    var protoAnimalPart = AnimalPartProto.newBuilder().setId(animalPart.getId())
+        .setAnimalId(animalPart.getAnimalId())
         .setPartType(animalPart.getPartType()).setWeight(animalPart.getWeight())
         .build();
-    return CreateAnimalPartResponse.newBuilder().setPart(protoAnimalPart).build();
+    //add it to the response
+    var response = CreateAnimalPartResponse.newBuilder()
+        .setPart(protoAnimalPart).build();
+    //stream response
+    responseObserver.onNext(response);// needed for grpc services
+    responseObserver.onCompleted();//send grpc
   }
 
-  public AnimalPartProto createAnimalPart(CreateAnimalPartRequest request)
+  @Override public void listAnimalParts(com.google.protobuf.Empty request,
+      StreamObserver<ListAnimalPartsResponse> responseObserver)
   {
-    AnimalPart animalPart = new AnimalPart();
-    animalPart.setId(request.getPart().getId());
-    animalPart.setAnimalId(request.getPart().getAnimalId());
-    animalPart.setWeight(request.getPart().getWeight());
-    animalPart.setPartType(request.getPart().getPartType());
-
-    partRepository.save(animalPart);
-
-    AnimalPartProto protoAnimalPart = com.slaughterhouse.grpc.AnimalPartProto.newBuilder()
-        .setId(animalPart.getId())  // Long maps to proto int64
-        .setPartType(animalPart.getPartType())
-        .setAnimalId(animalPart.getAnimalId()).setWeight(animalPart.getWeight())
-        .build();
-
-    return protoAnimalPart;
-  }
-
-  public ListAnimalPartsResponse listAnimalParts()
-  {
-    List<AnimalPartProto> animalParts = partRepository.findAll().stream().map(
-            animalPart -> AnimalPartProto.newBuilder().setId(animalPart.getId())
-                .setAnimalId(animalPart.getAnimalId())
-                .setWeight(animalPart.getWeight()).setPartType(animalPart.getPartType()).build())
-        .collect(Collectors.toList());
-
-    return ListAnimalPartsResponse.newBuilder().addAllParts(animalParts)
-        .build();
-  }
-
-  public AnimalPartProto getAnimalPart(Integer id)
-  {
-    return partRepository.findById(id).map(animalPart -> AnimalPartProto.newBuilder().setId(animalPart.getId())
-            .setPartType(animalPart.getPartType())
+    //Get parts
+    var animalParts = partRepository.findAll().stream().map(
+        animalPart -> AnimalPartProto.newBuilder().setId(animalPart.getId())
+            .setAnimalId(animalPart.getAnimalId())
             .setWeight(animalPart.getWeight())
-            .setAnimalId(animalPart.getAnimalId()).build()).orElse(null);
+            .setPartType(animalPart.getPartType()).build()).toList();
+    // create response
+    var response = ListAnimalPartsResponse.newBuilder().addAllParts(animalParts)
+        .build();
+    // stream response
+    responseObserver.onNext(response);// needed for grpc services
+    responseObserver.onCompleted();//send grpc
   }
 
-  public DeleteResponse deleteAnimalPart(Integer id)
+  @Override public void getAnimalPart(GetByIdRequest idRequest,
+      StreamObserver<AnimalPartProto> responseObserver)
   {
-    DeleteResponse.Builder response = DeleteResponse.newBuilder();
-    if (partRepository.existsById(id))
+    //get animal part
+    var animalPart = partRepository.findById(idRequest.getId()).orElse(null);
+    //if null stream exception
+    if (animalPart == null)
     {
-      partRepository.deleteById(id);
+      responseObserver.onError(
+          io.grpc.Status.NOT_FOUND
+              .withDescription("AnimalPart with ID " + idRequest.getId() + " not found")
+              .asRuntimeException()
+      );
+      return; //exit
     }
-    else
+    //create response
+    var response = AnimalPartProto.newBuilder()
+        .setAnimalId(animalPart.getAnimalId())
+        .setPartType(animalPart.getPartType())
+        .setId(animalPart.getId())
+        .setWeight(animalPart.getWeight())
+        .build();
+    //stream response
+    responseObserver.onNext(response);// needed for grpc services
+    responseObserver.onCompleted();//send grpc
+  }
+  @Override
+  public void deleteAnimalPart(DeleteByIdRequest id,
+      StreamObserver<DeleteResponse> responseObserver)
+  {
+    //check if the part exists
+    if (!partRepository.existsById(id.getId()))
     {
-      response.setError(com.slaughterhouse.grpc.Error.newBuilder().setCode(404)
-          .setMessage("AnimalPart not found").build());
+      responseObserver.onError(
+          io.grpc.Status.NOT_FOUND
+              .withDescription("AnimalPart with ID " + id.getId() + " not found")
+              .asRuntimeException()
+      );
+      return; //exit
     }
-    return response.build();
+    //delete
+    partRepository.deleteById(id.getId());
+    var response = DeleteResponse.newBuilder().build();
+    // send response
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
   }
 }
