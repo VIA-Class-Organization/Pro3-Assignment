@@ -45,6 +45,36 @@ import java.util.stream.Collectors;
         .map(ResponseEntity::ok)// return okay
         .orElse(ResponseEntity.notFound().build());
   }
+    @PutMapping("/{id}")
+    public ResponseEntity<Animal> updateAnimal(@PathVariable int id, @RequestBody Animal updatedAnimal) {
+      //find existing animal
+      var existingAnimalOptional = animalRepository.findById(id); //avoid null pointer
+      if (existingAnimalOptional.isEmpty()) {
+        // Return 404 if not found
+        return ResponseEntity.notFound().build();
+      }
+      var existingAnimal = existingAnimalOptional.get();
+      //set all parameters
+      existingAnimal.setOrigin(updatedAnimal.getOrigin());
+      existingAnimal.setArrivalTime(updatedAnimal.getArrivalTime());
+      existingAnimal.setWeight(updatedAnimal.getWeight());
+      Animal saved = animalRepository.save(existingAnimal);
+      return ResponseEntity.ok(saved);
+    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteAnimal(@PathVariable int id) {
+    // Check if the animal exists
+    var existingAnimalOptional = animalRepository.findById(id);
+    if (existingAnimalOptional.isEmpty()) {
+      // Return 404 if not found
+      return ResponseEntity.notFound().build();
+    }
+
+    // Delete the animal
+    animalRepository.deleteById(id);
+    // Return 204 No Content
+    return ResponseEntity.noContent().build();
+  }
 
   //  Get all by origin (letters only)
   @GetMapping("/origin/{origin}") public List<Animal> getByOrigin(
@@ -73,6 +103,7 @@ import java.util.stream.Collectors;
         .filter(a -> a.getArrivalTime().toLocalDate().equals(date))
         .collect(Collectors.toList());
   }
+
 
   @GetMapping public List<Animal> getAllAnimals()
   {
